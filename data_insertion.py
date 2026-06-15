@@ -57,7 +57,8 @@ def transformer_pokemon(data):
             "vit": data["stats"]["vit"]
         },
         "types": [t["name"] for t in data["types"]],
-        "talents": [{"name": tl["name"], "is_hidden": tl["tc"]} for tl in data["talents"]]
+        "talents": [{"name": tl["name"], "is_hidden": tl["tc"]} for tl in data["talents"]],
+        "evolutions": evolutions
     }
 
 data_list = requests.get("https://tyradex.app/api/v1/pokemon", headers=headers).json()[1:]
@@ -96,6 +97,11 @@ try:
             if talent_result:
                 talent_id = talent_result[0]
                 cursor.execute("INSERT IGNORE INTO pokemon_talent (pokemon_id, talent_id, is_hidden) VALUES (%s, %s, %s)", (p["pokemon"]["pokedex_id"], talent_id, tl["is_hidden"]))
+
+    for item in data_list:
+        p = transformer_pokemon(item)
+        for evo in p["evolutions"]:
+            cursor.execute("INSERT IGNORE INTO pokemon_evolution (pre_evolution_id, post_evolution_id, evolution_condition) VALUES (%s, %s, %s)", (p["pokemon"]["pokedex_id"], evo["evolves_to_id"], evo["condition"]))
 
     conn.commit()
     print("Insertion réussie.")

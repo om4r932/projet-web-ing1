@@ -59,3 +59,12 @@ CREATE TABLE IF NOT EXISTS pokemon_talent (
     FOREIGN KEY (pokemon_id) REFERENCES pokemon(pokedex_id) ON DELETE CASCADE,
     FOREIGN KEY (talent_id) REFERENCES talent(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS pokemon_evolution (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pre_evolution_id INT NOT NULL,
+    post_evolution_id INT NOT NULL,
+    evolution_condition VARCHAR(255),
+    FOREIGN KEY (pre_evolution_id) REFERENCES pokemon(pokedex_id) ON DELETE CASCADE,
+    FOREIGN KEY (post_evolution_id) REFERENCES pokemon(pokedex_id) ON DELETE CASCADE
+);
