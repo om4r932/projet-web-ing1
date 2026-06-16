@@ -2,6 +2,8 @@
 
 Cette application web est un Pokédex interactif développé dans le cadre de la SAE (Situation d'Apprentissage et d'Évaluation) sur les bases de données et le développement web.
 
+![Aperçu du Pokédex](./demo.png)
+
 ## Description
 
 Le projet consiste en une application dynamique permettant de rechercher, visualiser des informations détaillées (statistiques, types, formes, familles d'évolution) sur différents Pokémon. L'application exploite une base de données relationnelle pour stocker et récupérer ces informations.
