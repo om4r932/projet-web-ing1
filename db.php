@@ -57,3 +57,10 @@ function getReversedEvolutionsByPokemonId($pdo, $id){
     $stmt->execute([$id]);
     return $stmt->fetchAll();
 }
+
+// Fonction pour l'auto-complétion
+function searchPokemonNames($pdo, $term) {
+    $stmt = $pdo->prepare("SELECT pokedex_id, name_fr FROM pokemon WHERE name_fr LIKE ? LIMIT 10");
+    $stmt->execute(["%$term%"]);
+    return $stmt->fetchAll();
+}
