@@ -10,10 +10,11 @@ if ($id > 0) {
         $stats = getStatsByPokemonId($pdo, $id);
         $types = getTypesByPokemonId($pdo, $id);
         $evolutions = getEvolutionsByPokemonId($pdo, $id);
+        $reversedEvolutions = getReversedEvolutionsByPokemonId($pdo, $id);
 
         echo "<h1>" . htmlspecialchars($pokemon['name_fr']) . " (#" . $pokemon['pokedex_id'] . ")</h1>";
 
-        $sprites = ["regular", "shiny", "mega-regular", "mega-shiny", "mega_x-regular", "mega_x-shiny", "mega_y-regular", "mega_y-shiny"];
+        $sprites = ["regular", "shiny", "mega-regular", "mega-shiny", "mega_x-regular", "mega_x-shiny", "mega_y-regular", "mega_y-shiny", "gmax-regular", "g"];
         foreach ($sprites as $s) {
             $url = "https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/" . $id . "/" . $s . ".png";
             $headers = @get_headers($url);
@@ -51,6 +52,15 @@ if ($id > 0) {
                     echo " (" . htmlspecialchars($evo['evolution_condition']) . ")";
                 }
                 echo "</li>";
+            }
+            echo "</ul>";
+        }
+
+        if ($reversedEvolutions) {
+            echo "<h2>Formes précédents</h2>";
+            echo "<ul>";
+            foreach ($reversedEvolutions as $evo) {
+                echo "<li><a href='pokemon_info.php?id=" . $evo['pokedex_id'] . "'>" . htmlspecialchars($evo['name_fr']) . "</a></li>";
             }
             echo "</ul>";
         }

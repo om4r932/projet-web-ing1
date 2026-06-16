@@ -47,8 +47,13 @@ function getEvolutionsByPokemonId($pdo, $id) {
     return $stmt->fetchAll();
 }
 
-function getDamageRelations($pdo) {
-    $stmt = $pdo->query("SELECT attacker_type_id, defender_type_id, effectiveness_multiplier FROM type_interaction");
+function getReversedEvolutionsByPokemonId($pdo, $id){
+    $stmt = $pdo->prepare("
+        SELECT p.pokedex_id, p.name_fr
+        FROM pokemon_evolution pe
+        JOIN pokemon p ON pe.pre_evolution_id = p.pokedex_id
+        WHERE pe.post_evolution_id = ?
+    ");
+    $stmt->execute([$id]);
     return $stmt->fetchAll();
 }
-?>
