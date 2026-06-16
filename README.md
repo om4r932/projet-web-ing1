@@ -44,6 +44,9 @@ Les données de l'application proviennent de l'API [TyraDex](https://tyradex.app
     ```
 3. Importez le script `schema.sql` dans MySQL.
 4. Configurez votre connexion dans `db.php` et `.env`.
+
+**Remarque**: Assurez-vous que l'accès au .env est sécurisé et que les informations sensibles ne sont pas exposées publiquement.
+
 5. Lancez le script d'importation :
     ```bash
     python data_insertion.py
